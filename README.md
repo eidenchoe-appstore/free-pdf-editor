@@ -1,39 +1,67 @@
 <p align="center">
-  <img src="assets/icon.png" width="128" alt="Free PDF Editor app icon">
+  <img src="assets/icon.png" width="112" alt="Free PDF Editor app icon">
 </p>
 
-# Free PDF Editor
+<h1 align="center">Free PDF Editor</h1>
 
-**A native macOS PDF editor built on PDFKit.**  
-Free PDF Editor focuses on the everyday editing workflow: open a PDF, detect text, visually replace text with any Mac font, highlight passages, add text boxes, place signatures, and export a final flattened copy.
+<p align="center">
+  A native macOS PDF editor for visual text replacement, annotations, and signatures.
+</p>
 
-![macOS](https://img.shields.io/badge/macOS-14%2B-blue?logo=apple)
-![Swift](https://img.shields.io/badge/Swift-5.10-orange?logo=swift)
-![PDFKit](https://img.shields.io/badge/PDFKit-native-purple)
-![Version](https://img.shields.io/badge/version-0.0.1-black)
+<p align="center">
+  <a href="https://github.com/eidenchoe-appstore/free-pdf-editor/raw/main/dist/FreePDFEditor-v0.0.1.dmg"><strong>Download DMG</strong></a>
+  ·
+  <a href="documents/README.ko.md">한국어 README</a>
+  ·
+  <a href="https://github.com/eidenchoe-appstore/free-pdf-editor/releases">Releases</a>
+</p>
+
+<p align="center">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-black?style=flat-square">
+  <a href="LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue?style=flat-square">
+  </a>
+  <img alt="Platform" src="https://img.shields.io/badge/platform-macOS%2014%2B-lightgrey?style=flat-square">
+</p>
+
+## Overview
+
+Free PDF Editor is built for the everyday PDF editing workflow: open a PDF, click detected text, visually replace it with a Mac font, highlight passages, add notes or shapes, place reusable signatures, and export a clean final copy. It uses Apple's PDFKit for native PDF rendering and annotation storage instead of shipping a custom PDF engine.
+
+## Features
+
+| Tool | What it does | Behavior |
+| --- | --- | --- |
+| PDF viewer | Opens and renders local PDF files | Native PDFKit scrolling, thumbnails, page navigation, zoom, and reading modes |
+| Text replacement | Edits detected text lines visually | Covers the original area and places replacement text with selected font, size, and color |
+| Markup | Adds highlight, underline, and strikeout | Uses PDF annotations that can be saved or flattened |
+| Text and comments | Adds free text boxes and note comments | Supports font, color, and size controls from the inspector |
+| Shapes and stamps | Adds rectangle, ellipse, line, and text stamp annotations | Supports stroke, fill, and line width settings |
+| Signatures | Draws a reusable signature or imports PNG/JPEG/TIFF images | Places signatures on the PDF as movable, resizable image annotations |
+| Save and export | Saves editable PDFs or flattened final copies | Normal save preserves annotations; flattened export burns them into the visual PDF |
 
 ## Download
 
-The v0.0.1 distributable DMG is generated locally at:
+Download the current v0.0.1 DMG:
 
-```text
-dist/FreePDFEditor-v0.0.1.dmg
-```
+[FreePDFEditor-v0.0.1.dmg](https://github.com/eidenchoe-appstore/free-pdf-editor/raw/main/dist/FreePDFEditor-v0.0.1.dmg)
 
-Open the DMG, drag **Free PDF Editor.app** to Applications, then launch it.
+After opening the DMG, drag **Free PDF Editor** into **Applications**.
 
-> The current build is ad-hoc signed for local distribution. For public release outside this machine, sign with an Apple Developer ID certificate and notarize the DMG.
+> The current build is ad-hoc signed for local distribution. For public distribution, sign with an Apple Developer ID certificate and notarize the DMG.
 
-## Core Features
+## Usage
 
-| Area | What it does |
-| --- | --- |
-| PDF viewer | Native `PDFView` rendering, scrolling, page thumbnails, zoom, and reading modes |
-| Text replacement | Click a PDF text line, edit the text, choose any installed Mac font, size, text color, and cover color |
-| Annotation tools | Highlight, underline, strikeout, text box, comment, rectangle, ellipse, line, and stamp |
-| Signature tools | Draw a reusable signature or import a PNG/JPEG/TIFF signature image, then place it on a PDF |
-| Editing controls | Select, move, resize, and delete inserted annotations |
-| Save/export | Save editable annotations or export a flattened visual copy |
+1. Open **Free PDF Editor**.
+2. Drag a `.pdf` file into the drop area, or click **Open PDF** to choose a file manually.
+3. Select an editing tool from the toolbar:
+   - **Replace Text** to click an existing text line and place replacement text.
+   - **Highlight**, **Underline**, or **Strikeout** to mark selected text.
+   - **Text Box** or **Comment** to add editable notes.
+   - **Rectangle**, **Ellipse**, **Line**, or **Stamp** to add simple visual marks.
+   - **Signature** to place a saved signature on the PDF.
+4. Use the right inspector to change fonts, colors, cover color, line width, stamp text, and signatures.
+5. Save with **Command + S**, or use **Export Flattened PDF** when you need a final sharing copy.
 
 ## Keyboard Shortcuts
 
@@ -52,90 +80,44 @@ Open the DMG, drag **Free PDF Editor.app** to Applications, then launch it.
 | `Command + 1` ... `Command + 9` | Switch between core editing tools |
 | `Delete` | Delete selected annotation |
 
-## Text Replacement Model
+## Editing Behavior
 
-PDFs are final-layout documents, not Word-style editable files. Free PDF Editor uses a practical PDFKit editing layer:
-
-1. Detect text and its page bounds with PDFKit.
-2. Show the detected text in the inspector.
-3. Cover the original text area with a chosen cover color.
-4. Add replacement text using Core Text-compatible macOS fonts.
-5. Save as editable annotations or export a flattened visual PDF.
-
-This is ideal for forms, certificates, invoices, simple contracts, and white-background PDFs. It is **not** a secure redaction engine. If you need legal/forensic redaction, use a dedicated redaction workflow that removes underlying content.
-
-## Screens
-
-The app uses a desktop editor layout:
-
-- Left sidebar: page thumbnails
-- Center canvas: native PDFKit viewer and editing surface
-- Top toolbar: file, page, tools, zoom, reading mode
-- Right inspector: text style, replacement editor, annotation settings, signature manager, file actions
-
-## Build From Source
-
-Requirements:
-
-- macOS 14 or later
-- Xcode 15.3 or later
-- Swift 5.10 or later
-
-Build and run:
-
-```bash
-./script/build_and_run.sh
-```
-
-Verify the app launches as a foreground `.app` bundle:
-
-```bash
-./script/build_and_run.sh --verify
-```
-
-Create the v0.0.1 DMG:
-
-```bash
-./script/package_dmg.sh
-```
-
-## Project Structure
+PDF files are final-layout documents, not Word-style editable files. Free PDF Editor uses a practical PDFKit editing layer:
 
 ```text
-Sources/FreePDFEditor/
-├── App/                    # SwiftUI app entrypoint and menu commands
-├── Models/                 # Tool, reading mode, replacement, signature models
-├── Services/               # PDF editor state and PDF annotation helpers
-├── Stores/                 # Signature persistence
-├── Views/                  # Editor, PDFKit bridge, inspector, sidebar, signature UI
-└── Support/                # App metadata
-
-script/
-├── build_and_run.sh        # Build, bundle, sign, run, verify
-└── package_dmg.sh          # Release build and DMG creation
+detected text bounds
+cover annotation
+replacement text annotation
+save or flattened export
 ```
 
-## Verification Status
+This works well for forms, certificates, invoices, simple contracts, and white-background PDFs. It is not a secure redaction engine. If you need legal or forensic redaction, use a dedicated redaction workflow that removes underlying PDF content.
 
-The current v0.0.1 build was verified with:
+## Requirements
+
+- macOS 14 or later
+- No external PDF engine or command-line converter required
+
+## Development
 
 ```bash
 swift build
 ./script/build_and_run.sh --verify
 ./script/package_dmg.sh
-codesign --verify --deep --strict --verbose=2 "dist/Free PDF Editor.app"
-hdiutil verify dist/FreePDFEditor-v0.0.1.dmg
 ```
 
-## Roadmap
+The packaged DMG is written to:
 
-- Word-level selection and smaller span replacement
-- Better background color sampling around detected text
-- Page rotation, deletion, and reordering
-- OCR-assisted text replacement for scanned PDFs
-- True secure redaction as a separate workflow
-- Developer ID signing and notarized public DMG releases
+```text
+dist/FreePDFEditor-v0.0.1.dmg
+```
+
+## Release
+
+Current version: `0.0.1`
+
+The app bundle is generated from SwiftPM, includes the app icon from `assets/icon.png`, and is packaged into a verified DMG.
 
 ## License
 
-See [LICENSE](LICENSE).
+Apache License 2.0. See [LICENSE](LICENSE).
